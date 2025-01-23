@@ -21,11 +21,11 @@ st.set_page_config(layout="wide")
 
 # File: streamlit_app.py
 
-data=pd.read_csv('/Users/ankit/Downloads/EDA_IB/New_Client_Data/streamlit/df_original_scenario.csv')
-data2=pd.read_csv('/Users/ankit/Downloads/EDA_IB/New_Client_Data/streamlit/df_updated_scenario_2.csv')
+data=pd.read_csv('df_original_scenario.csv')
+data2=pd.read_csv('df_updated_scenario_2.csv')
 
-data_orig_nitish=pd.read_csv('/Users/ankit/Downloads/EDA_IB/New_Client_Data/streamlit/df_original_scenario_nitish.csv')
-data_up_nitish=pd.read_csv('/Users/ankit/Downloads/EDA_IB/New_Client_Data/streamlit/df_updated_scenario_nitish.csv')
+data_orig_nitish=pd.read_csv('df_original_scenario_nitish.csv')
+data_up_nitish=pd.read_csv('df_updated_scenario_nitish.csv')
 
 
 # Filters
