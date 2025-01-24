@@ -99,6 +99,8 @@ data2=pd.read_csv('df_updated_scenario_2.csv')
 data_orig_nitish=pd.read_csv('df_original_scenario_nitish.csv')
 data_up_nitish=pd.read_csv('df_updated_scenario_nitish.csv')
 
+data2['week_of_year'] = data2['updated_delivery_date'].apply(lambda x: x.isocalendar().week)
+data_up_nitish['week_of_year'] = data_up_nitish['updated_delivery_date'].apply(lambda x: x.isocalendar().week)
 
 # Filters
 # st.sidebar.header("Filters")
