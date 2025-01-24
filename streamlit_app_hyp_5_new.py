@@ -75,7 +75,7 @@ def add_weekend_data(df, year_col='Lst.datum', week_col='week_of_year', totpal_c
             year_col: [saturday, sunday],
             week_col: [group[week_col]] * 2,
             'Month_orig': [saturday.month, sunday.month],
-            totpal_col: ['', 'Weekend']
+            totpal_col: ['Weekend', '']
         })
 
         # Append original group data and weekend data to the result
