@@ -99,6 +99,9 @@ data2=pd.read_csv('df_updated_scenario_2.csv',parse_dates=['updated_delivery_dat
 data_orig_nitish=pd.read_csv('df_original_scenario_nitish.csv')
 data_up_nitish=pd.read_csv('df_updated_scenario_nitish.csv',parse_dates=['updated_delivery_date'])
 
+df_best_scenario=pd.read_csv('df_best_scenario_info_approach_2.csv')
+
+
 data2['week_of_year'] = data2['updated_delivery_date'].apply(lambda x: x.isocalendar().week)
 data_up_nitish['week_of_year'] = data_up_nitish['updated_delivery_date'].apply(lambda x: x.isocalendar().week)
 
@@ -255,6 +258,8 @@ input_shipment_cost_col = 'total_cost_cost_sheet_as_is'
 output_shipment_cost_col = 'total_cost_cost_sheet_after'
 input_pallets_col = 'TOTPAL'
 output_pallets_col = 'TOTPAL'
+best_scenario=df_best_scenario[(df_best_scenario["Customer Clients data"]==customers) & (df_best_scenario['Postal Code clients data']==postal_code) & (df_best_scenario['Street']==street) & (df_best_scenario['DC']==dc)]['Best Scenario'].iloc[0]
+
                         
 date_format = "%d-%b"
 # Date format
@@ -270,7 +275,7 @@ filtered_data_n2["date_format"] = pd.to_datetime(filtered_data_n2[output_date_co
 fig = make_subplots(
     rows=3,
     cols=1,
-    subplot_titles=("Before Consolidation", "Consolidation Approach-1", "Consolidation Approach-2"),
+    subplot_titles=("Before Consolidation", "Consolidation Approach-1", "Consolidation Approach-2: "+best_scenario),
     shared_xaxes="all",
     shared_yaxes="all",
     y_title=y_title,
