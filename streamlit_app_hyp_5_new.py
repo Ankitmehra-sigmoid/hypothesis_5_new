@@ -7,7 +7,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-
+from datetime import datetime, timedelta
 import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
@@ -16,8 +16,80 @@ import numpy as np
 
 
 st.set_page_config(layout="wide")
-# In[ ]:
 
+def add_weekend_data(df, year_col='Lst.datum', week_col='week_of_year', totpal_col='TOTPAL'):
+    """
+    Adds weekend dates (Saturday and Sunday) to a dataset for each unique combination 
+    of grouping columns and sets 'TOTPAL' values to 0 for these dates.
+
+    Parameters:
+    df (pd.DataFrame): Input DataFrame containing date, week number, and grouping columns.
+    year_col (str): Column name for the date column. Defaults to 'Lst.datum'.
+    week_col (str): Column name for the week number column. Defaults to 'week_of_year'.
+    totpal_col (str): Column name for the TOTPAL values. Defaults to 'TOTPAL'.
+
+    Returns:
+    pd.DataFrame: Updated DataFrame with weekend data added.
+    """
+
+    # Ensure the date column is in datetime format
+    df[year_col] = pd.to_datetime(df[year_col])
+
+    # Get unique combinations of the grouping columns
+    grouping_columns = ['Customer Clients data', 'Postal Code clients data', 'Street', 'DC', week_col]
+    unique_combinations = df[grouping_columns].drop_duplicates()
+
+    # Function to calculate weekend dates for a given week number
+    def get_weekend_dates(year, week_number):
+        # Get the Monday of the given week
+        monday = datetime.strptime(f"{year}-W{week_number:02d}-1", "%Y-W%U-%w")
+        saturday = monday + timedelta(days=5)
+        sunday = monday + timedelta(days=6)
+        return saturday, sunday
+
+    # Create a new DataFrame to store the results
+    result_df = pd.DataFrame()
+
+    # Iterate through each unique combination
+    for _, group in unique_combinations.iterrows():
+        # Filter data for this combination
+        group_data = df[
+            (df['Customer Clients data'] == group['Customer Clients data']) &
+            (df['Postal Code clients data'] == group['Postal Code clients data']) &
+            (df['Street'] == group['Street']) &
+            (df['DC'] == group['DC']) &
+            (df[week_col] == group[week_col])
+        ]
+
+        # Get the weekend dates for the week
+        year = group_data[year_col].dt.year.iloc[0]
+        week_number = group[week_col]
+        saturday, sunday = get_weekend_dates(year, week_number)
+
+        # Create rows for weekend dates
+        weekend_data = pd.DataFrame({
+            'Customer Clients data': [group['Customer Clients data']] * 2,
+            'Postal Code clients data': [group['Postal Code clients data']] * 2,
+            'Street': [group['Street']] * 2,
+            'DC': [group['DC']] * 2,
+            year_col: [saturday, sunday],
+            week_col: [group[week_col]] * 2,
+            'Month_orig': [saturday.month, sunday.month],
+            totpal_col: ['', 'Weekend']
+        })
+
+        # Append original group data and weekend data to the result
+        result_df = pd.concat([result_df, group_data, weekend_data], ignore_index=True)
+
+    # Sort the result DataFrame by combination and date
+    result_df.sort_values(by=['Customer Clients data', 'Postal Code clients data', 'Street', 'DC', year_col], inplace=True)
+
+    # Reset index for the result DataFrame
+    result_df.reset_index(drop=True, inplace=True)
+
+    return result_df
+
+###########################################
 
 # File: streamlit_app.py
 
@@ -117,7 +189,9 @@ filtered_data_n2.to_csv('filtered_data_after_nitish.csv',index=False)
 # Display tiles
 # st.title("Cost Dashboard")
 
-
+filtered_data=add_weekend_data(filtered_data,year_col='Lst.datum', week_col='week_of_year', totpal_col='TOTPAL')
+filtered_data2=add_weekend_data(filtered_data2, year_col='updated_delivery_date', week_col='week_of_year', totpal_col='TOTPAL')
+filtered_data_n2=add_weekend_data(filtered_data_n2,year_col='updated_delivery_date',week_col='week_of_year', totpal_col='TOTPAL')
 
 # Bar plot function
 def create_bar_plot(df, date_col, qty_col, title, width=900, height=350):
