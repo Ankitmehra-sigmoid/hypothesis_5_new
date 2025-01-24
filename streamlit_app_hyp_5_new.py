@@ -182,9 +182,12 @@ output_pallets_col = 'TOTPAL'
                         
 date_format = "%d-%b"
 # Date format
-filtered_data["date_format"] = pd.to_datetime(filtered_data[input_date_col]).dt.strftime(date_format)
-filtered_data2["date_format"] = pd.to_datetime(filtered_data2[output_date_col]).dt.strftime(date_format)
-filtered_data_n2["date_format"] = pd.to_datetime(filtered_data_n2[output_date_col]).dt.strftime(date_format)
+# filtered_data["date_format"] = pd.to_datetime(filtered_data[input_date_col]).dt.strftime(date_format)
+# filtered_data2["date_format"] = pd.to_datetime(filtered_data2[output_date_col]).dt.strftime(date_format)
+# filtered_data_n2["date_format"] = pd.to_datetime(filtered_data_n2[output_date_col]).dt.strftime(date_format)
+filtered_data["date_format"] = pd.to_datetime(filtered_data[input_date_col]).dt.strftime(f"{date_format} (%A)")
+filtered_data2["date_format"] = pd.to_datetime(filtered_data2[output_date_col]).dt.strftime(f"{date_format} (%A)")
+filtered_data_n2["date_format"] = pd.to_datetime(filtered_data_n2[output_date_col]).dt.strftime(f"{date_format} (%A)")
 
                         
 # Plotly figure
