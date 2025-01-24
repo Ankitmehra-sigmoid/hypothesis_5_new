@@ -93,11 +93,11 @@ def add_weekend_data(df, year_col='Lst.datum', week_col='week_of_year', totpal_c
 
 # File: streamlit_app.py
 
-data=pd.read_csv('df_original_scenario.csv')
-data2=pd.read_csv('df_updated_scenario_2.csv')
+data=pd.read_csv('df_original_scenario.csv',parse_dates=['Lst.datum'])
+data2=pd.read_csv('df_updated_scenario_2.csv',parse_dates=['updated_delivery_date'])
 
 data_orig_nitish=pd.read_csv('df_original_scenario_nitish.csv')
-data_up_nitish=pd.read_csv('df_updated_scenario_nitish.csv')
+data_up_nitish=pd.read_csv('df_updated_scenario_nitish.csv',parse_dates=['updated_delivery_date'])
 
 data2['week_of_year'] = data2['updated_delivery_date'].apply(lambda x: x.isocalendar().week)
 data_up_nitish['week_of_year'] = data_up_nitish['updated_delivery_date'].apply(lambda x: x.isocalendar().week)
