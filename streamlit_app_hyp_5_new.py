@@ -207,9 +207,9 @@ original_cost_nitish=original_cost
 updated_cost_nitish=round(filtered_data_n2['Total cost updated'].sum(),0)
 savings_nitish=original_cost_nitish-updated_cost_nitish
 
-# filtered_data=add_weekend_data(filtered_data,year_col='Lst.datum', week_col='week_of_year', totpal_col='TOTPAL')
-# filtered_data2=add_weekend_data(filtered_data2, year_col='updated_delivery_date', week_col='week_of_year', totpal_col='TOTPAL')
-# filtered_data_n2=add_weekend_data(filtered_data_n2,year_col='updated_delivery_date',week_col='week_of_year', totpal_col='TOTPAL')
+filtered_data=add_weekend_data(filtered_data,year_col='Lst.datum', week_col='week_of_year', totpal_col='TOTPAL')
+filtered_data2=add_weekend_data(filtered_data2, year_col='updated_delivery_date', week_col='week_of_year', totpal_col='TOTPAL')
+filtered_data_n2=add_weekend_data(filtered_data_n2,year_col='updated_delivery_date',week_col='week_of_year', totpal_col='TOTPAL')
 
 # Bar plot function
 def create_bar_plot(df, date_col, qty_col, title, width=900, height=350):
