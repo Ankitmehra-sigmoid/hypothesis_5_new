@@ -154,18 +154,18 @@ filtered_data2= filtered_data2[filtered_data2['DC'] == dc]
 filtered_data_n = filtered_data_n[filtered_data_n['DC'] == dc]
 filtered_data_n2=filtered_data_n2[filtered_data_n2['DC']==dc]
 
-original_cost=round(filtered_data['Total cost orig'].sum(),0)
-updated_cost=round(filtered_data2['Total cost updated'].sum())
-savings=filtered_data['Total cost orig'].sum()-filtered_data2['Total cost updated'].sum()
+# original_cost=round(filtered_data['Total cost orig'].sum(),0)
+# updated_cost=round(filtered_data2['Total cost updated'].sum())
+# savings=filtered_data['Total cost orig'].sum()-filtered_data2['Total cost updated'].sum()
 
-original_cost_nitish=original_cost
-updated_cost_nitish=round(filtered_data_n2['Total cost updated'].sum(),0)
+# original_cost_nitish=original_cost
+# updated_cost_nitish=round(filtered_data_n2['Total cost updated'].sum(),0)
 
-savings_nitish=original_cost_nitish-updated_cost_nitish
-if savings_nitish<5:
-    original_cost_nitish=original_cost
-    updated_cost_nitish=original_cost
-    savings_nitish=0
+# savings_nitish=original_cost_nitish-updated_cost_nitish
+# if savings_nitish<5:
+#     original_cost_nitish=original_cost
+#     updated_cost_nitish=original_cost
+#     savings_nitish=0
     
                      
 months = st.sidebar.multiselect(
@@ -198,6 +198,14 @@ filtered_data_n2= filtered_data_n2[filtered_data_n2['updated_delivery_date']<=la
 
 # Display tiles
 # st.title("Cost Dashboard")
+
+original_cost=round(filtered_data['Total cost orig'].sum(),0)
+updated_cost=round(filtered_data2['Total cost updated'].sum())
+savings=filtered_data['Total cost orig'].sum()-filtered_data2['Total cost updated'].sum()
+
+original_cost_nitish=original_cost
+updated_cost_nitish=round(filtered_data_n2['Total cost updated'].sum(),0)
+savings_nitish=original_cost_nitish-updated_cost_nitish
 
 # filtered_data=add_weekend_data(filtered_data,year_col='Lst.datum', week_col='week_of_year', totpal_col='TOTPAL')
 # filtered_data2=add_weekend_data(filtered_data2, year_col='updated_delivery_date', week_col='week_of_year', totpal_col='TOTPAL')
