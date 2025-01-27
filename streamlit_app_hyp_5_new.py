@@ -271,23 +271,24 @@ filtered_data2["date_format"] = pd.to_datetime(filtered_data2[output_date_col]).
 filtered_data_n2["date_format"] = pd.to_datetime(filtered_data_n2[output_date_col]).dt.strftime(f"{date_format} (%A)")
 
                         
-# Plotly figure
+# Plotly figure remains the same
 fig = make_subplots(
     rows=3,
     cols=1,
-    subplot_titles=("Before Consolidation", "Consolidation Approach-1",f" Consolidation Approach-2 (Consolidation Scenario: {best_scenario})"),
+    subplot_titles=("Before Consolidation", "Consolidation Approach-1", "Consolidation Approach-2"),
     shared_xaxes="all",
     shared_yaxes="all",
     y_title=y_title,
     vertical_spacing=0.1,
 )
+
 if len(filtered_data.index) > 0:
     fig.add_trace(
         go.Bar(
             x=filtered_data["date_format"],
             y=filtered_data[input_y_col],
             hovertemplate="<b>Date: </b>%{customdata[1]}<br><b>Pallets: </b>%{customdata[0]}",
-            customdata=filtered_data[[input_pallets_col,'date_format']],
+            customdata=filtered_data[[input_pallets_col, "date_format"]],
             xaxis="x1",
             marker={"color": "#3366CC"},
             text=filtered_data[input_y_col],  # Add data labels
@@ -304,7 +305,7 @@ if len(filtered_data2.index) > 0:
             x=filtered_data2["date_format"],
             y=filtered_data2[output_y_col],
             hovertemplate="<b>Date: </b>%{customdata[1]}<br><b>Pallets: </b>%{customdata[0]}",
-            customdata=filtered_data2[[input_pallets_col,'date_format']],
+            customdata=filtered_data2[[input_pallets_col, "date_format"]],
             xaxis="x2",
             marker={"color": "#109618"},
             text=filtered_data2[output_y_col],  # Add data labels
@@ -321,7 +322,7 @@ if len(filtered_data_n2.index) > 0:
             x=filtered_data_n2["date_format"],
             y=filtered_data_n2[output_y_col],
             hovertemplate="<b>Date: </b>%{customdata[1]}<br><b>Pallets: </b>%{customdata[0]}",
-            customdata=filtered_data_n2[[input_pallets_col,'date_format']],
+            customdata=filtered_data_n2[[input_pallets_col, "date_format"]],
             xaxis="x2",
             marker={"color": "#109618"},
             text=filtered_data_n2[output_y_col],  # Add data labels
@@ -332,16 +333,22 @@ if len(filtered_data_n2.index) > 0:
         row=3,
         col=1,
     )
+
+# Update xaxis_array with the new date format
 xaxis_array = []
 if (len(filtered_data.index) > 0) or (len(filtered_data2.index) > 0):
     xaxis_array = sorted(
         list(
             set(
-                pd.to_datetime(filtered_data[input_date_col]).to_list() + pd.to_datetime(filtered_data2[output_date_col]).to_list() +pd.to_datetime(filtered_data_n2[output_date_col]).to_list()
+                pd.to_datetime(filtered_data[input_date_col]).to_list()
+                + pd.to_datetime(filtered_data2[output_date_col]).to_list()
+                + pd.to_datetime(filtered_data_n2[output_date_col]).to_list()
             )
         )
     )
-    xaxis_array = [v.strftime(date_format) for v in xaxis_array]
+    xaxis_array = [
+        v.strftime(f"{date_format} (%A)") for v in xaxis_array
+    ]  # Include day of the week
 
 fig.update_layout(
     {
@@ -353,8 +360,8 @@ fig.update_layout(
             "categoryarray": xaxis_array,
         },
         "template": "plotly_white",
-        "width": 1500,  # Set the desired width of the graph
-        "height": 700,  # Set the desired height of the graph
+        "width": 1000,  # Set the desired width of the graph
+        "height": 600,  # Set the desired height of the graph
     }
 )
 st.plotly_chart(fig, use_container_width=True)
