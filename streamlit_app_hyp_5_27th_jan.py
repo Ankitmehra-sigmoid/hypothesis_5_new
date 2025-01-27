@@ -101,11 +101,11 @@ def add_weekend_data(df, year_col='Lst.datum', week_col='week_of_year', totpal_c
 
 # data_up_nitish=pd.read_csv('/Users/ankit/Downloads/EDA_IB/New_Client_Data/streamlit/df_updated_scenario_nitish.csv',parse_dates=['updated_delivery_date'])
 
-data=pd.read_csv('/Users/ankit/Downloads/EDA_IB/New_Client_Data/streamlit/df_original_scenario_new.csv',parse_dates=['Lst.datum'])
+data=pd.read_csv('df_original_scenario_new.csv',parse_dates=['Lst.datum'])
 
-data2=pd.read_csv('/Users/ankit/Downloads/EDA_IB/New_Client_Data/streamlit/df_approach_1.csv',parse_dates=['updated_delivery_date'])
+data2=pd.read_csv('df_approach_1.csv',parse_dates=['updated_delivery_date'])
 
-data_up_nitish=pd.read_csv('/Users/ankit/Downloads/EDA_IB/New_Client_Data/streamlit/df_approach_2.csv',parse_dates=['updated_delivery_date'])
+data_up_nitish=pd.read_csv('df_approach_2.csv',parse_dates=['updated_delivery_date'])
 
 
 
@@ -116,7 +116,7 @@ data_up_nitish=pd.read_csv('/Users/ankit/Downloads/EDA_IB/New_Client_Data/stream
 # data_up_nitish=pd.read_csv('/Users/ankit/Downloads/EDA_IB/New_Client_Data/streamlit/df_approach_2_pbi.csv',parse_dates=['updated_delivery_date'])
 
 
-df_best_scenario=pd.read_csv('/Users/ankit/Downloads/EDA_IB/New_Client_Data/streamlit/df_best_scenario_info_approach_2.csv')
+df_best_scenario=pd.read_csv('df_best_scenario_info_approach_2.csv')
 
 
 ## adding Week column
