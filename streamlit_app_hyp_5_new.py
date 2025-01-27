@@ -93,14 +93,19 @@ def add_weekend_data(df, year_col='Lst.datum', week_col='week_of_year', totpal_c
 
 # File: streamlit_app.py
 
-data=pd.read_csv('df_original_scenario.csv',parse_dates=['Lst.datum'])
-data2=pd.read_csv('df_updated_scenario_2.csv',parse_dates=['updated_delivery_date'])
+# data=pd.read_csv('df_original_scenario.csv',parse_dates=['Lst.datum'])
+# data2=pd.read_csv('df_updated_scenario_2.csv',parse_dates=['updated_delivery_date'])
 
 data_orig_nitish=pd.read_csv('df_original_scenario_nitish.csv')
-data_up_nitish=pd.read_csv('df_updated_scenario_nitish.csv',parse_dates=['updated_delivery_date'])
+# data_up_nitish=pd.read_csv('df_updated_scenario_nitish.csv',parse_dates=['updated_delivery_date'])
 
 df_best_scenario=pd.read_csv('df_best_scenario_info_approach_2.csv')
 
+data=pd.read_csv('df_original_scenario_new.csv',parse_dates=['Lst.datum'])
+
+data2=pd.read_csv('df_approach_1.csv',parse_dates=['updated_delivery_date'])
+
+data_up_nitish=pd.read_csv('df_approach_2.csv',parse_dates=['updated_delivery_date'])
 
 data2['week_of_year'] = data2['updated_delivery_date'].apply(lambda x: x.isocalendar().week)
 data_up_nitish['week_of_year'] = data_up_nitish['updated_delivery_date'].apply(lambda x: x.isocalendar().week)
@@ -189,7 +194,7 @@ filtered_data_n2= filtered_data_n2[filtered_data_n2['updated_delivery_date']<=la
 ##save_data
 # filtered_data.to_csv('filtered_data_before.csv',index=False)
 # filtered_data2.to_csv('filtered_data_after.csv',index=False)
-filtered_data_n2.to_csv('filtered_data_after_nitish.csv',index=False)
+# filtered_data_n2.to_csv('filtered_data_after_nitish.csv',index=False)
 
 # Display tiles
 # st.title("Cost Dashboard")
@@ -220,9 +225,9 @@ def create_bar_plot(df, date_col, qty_col, title, width=900, height=350):
 
 # Graphs
 
-graph1 = create_bar_plot(filtered_data, 'Lst.datum', 'TOTPAL',title='Shipment Profile Without Consolidation')
-graph2 = create_bar_plot(filtered_data2, 'updated_delivery_date', 'TOTPAL',title='Shipment Profile After Consolidation', width=900, height=350)
-graph3 = create_bar_plot(filtered_data_n2, 'updated_delivery_date', 'TOTPAL',title='Shipment Profile After Consolidation Approach 2', width=900, height=350)
+# graph1 = create_bar_plot(filtered_data, 'Lst.datum', 'TOTPAL',title='Shipment Profile Without Consolidation')
+# graph2 = create_bar_plot(filtered_data2, 'updated_delivery_date', 'TOTPAL',title='Shipment Profile After Consolidation', width=900, height=350)
+# graph3 = create_bar_plot(filtered_data_n2, 'updated_delivery_date', 'TOTPAL',title='Shipment Profile After Consolidation Approach 2', width=900, height=350)
 
 # Display the graphs
 
